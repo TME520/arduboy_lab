@@ -1,13 +1,13 @@
-- Suzy Gao Xing
-- Beatrice Gao Xing
-- Mimi
-- Walter Ensworth
-- Ping Xu
-- Hacker
-- Corrupted cop
-- Pim
-- Nicholas Trent
-- Nicky Wang
-- Tiffany Cheng
-- Chris Mophet
-- Informer
+- Suzy Gao Xing (Suzy)
+- Beatrice Gao Xing (Bea)
+- Mimi (Mimi)
+- Walter Ensworth (Walter)
+- Ping Xu (Ping)
+- Hacker (Hacker)
+- Corrupted cop (Cop)
+- Pim (Pim)
+- Nicholas Trent (Nic T)
+- Nicky Wang (Nicky)
+- Tiffany Cheng (Tiff)
+- Chris Mophet (Chris)
+- Informer (Inf)

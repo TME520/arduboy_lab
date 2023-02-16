@@ -210,7 +210,7 @@ void loop() {
       break;
     case 8:
       tinyfont.setCursor(10, 50);
-      tinyfont.print("SUZY");
+      tinyfont.print("012345");
       tinyfont.setCursor(48, 2);
       tinyfont.print(dialog006);
       Sprites::drawOverwrite(8, 16, woman, 0);
