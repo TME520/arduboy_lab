@@ -1,5 +1,8 @@
 #include <Arduboy2.h>
+#include "Tinyfont.h"
+
 Arduboy2 arduboy;
+Tinyfont tinyfont = Tinyfont(arduboy.sBuffer, Arduboy2::width(), Arduboy2::height());
 
 const unsigned char PROGMEM black[] =
 {
@@ -127,9 +130,24 @@ const unsigned char PROGMEM hongkongflag[] =
 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
 };
 
+const unsigned char PROGMEM woman[] =
+{
+// width, height,
+32, 28,
+0x00, 0xfc, 0x83, 0x88, 0x87, 0xf2, 0xf9, 0xbd, 0xde, 0xdf, 0xcf, 0xcf, 0xef, 0xff, 0xff, 0xfe, 0xff, 0xfe, 0xff, 0xef, 0xcf, 0xcf, 0xdf, 0xde, 0xbc, 0xf9, 0xf2, 0x8e, 0xda, 0x8b, 0xfc, 0x00, 
+0x30, 0xfd, 0xc4, 0x81, 0x7f, 0xff, 0xff, 0xfb, 0xf9, 0xfc, 0xfa, 0xfa, 0xfc, 0xff, 0xff, 0xff, 0xff, 0xc7, 0x1f, 0x7d, 0xfa, 0xfa, 0xfc, 0xf9, 0xfb, 0xff, 0xff, 0x7f, 0x81, 0xc4, 0xfd, 0x30, 
+0x00, 0x00, 0x01, 0x01, 0x00, 0x01, 0x03, 0x0f, 0x1f, 0x3f, 0x7f, 0xfb, 0xe7, 0xd3, 0x92, 0x97, 0x97, 0x92, 0xd2, 0xe7, 0xfb, 0x7f, 0x3f, 0x1f, 0x0f, 0x03, 0x01, 0x00, 0x01, 0x01, 0x00, 0x00, 
+0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x08, 0x0f, 0x0f, 0x0e, 0x09, 0x03, 0x03, 0x07, 0x07, 0x03, 0x03, 0x01, 0x00, 0x00, 0x0f, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 
+};
+
 int current_step = 0;
 
-String dialog001 = "Hi, this is a test, do not pay too much attention to what is written there as it is late and I lack inspiration.";
+String dialog001 = "The quick brown\nfox jumps over\nthe lazy dog.";
+String dialog002 = "Il me faut la\nconsolation des\nOmbres\nEt l`obscurité\nde la nuit.";
+String dialog003 = "abcdefghijklmno\npqrstuvwxyz\nABCDEFGHIJKLMNO\nPQRSTUVWXYZ\n0123456789\n";
+String dialog004 = "IL ME FAUT LA\nCONSOLATION DES\nOMBRES\nET L`OBSCURITÉ\nDE LA NUIT.";
+String dialog005 = "    -=***=-   \nIl me faut la\n\nconsolation des\n\nOmbres\n\nEt l`obscurité\n\nde la nuit.\n    -=***=-   \n";
+String dialog006 = "0123456789ABCDEF\n1              \n2              \n3              \n4              \n5              \n6              \n7              \n8              \n9              \nA              \nB              \n";
 
 void setup() {
   arduboy.begin();
@@ -147,45 +165,61 @@ void loop() {
 
   switch ( current_step ) {
     case 0:
-      Sprites::drawOverwrite(0, 0, black, 0);
-      break;
-    case 1:
-      Sprites::drawOverwrite(0, 0, logo, 0);
-      break;
-    case 2:
       Sprites::drawOverwrite(0, 0, title, 0);
       break;
-    case 3:
-      Sprites::drawOverwrite(0, 0, hongkong001, 0);
-      break;
-    case 4:
-      Sprites::drawOverwrite(0, 0, hongkong002, 0);
-      break;
-    case 5:
-      Sprites::drawOverwrite(0, 0, hongkong003, 0);
-      break;
-    case 6:
-      Sprites::drawOverwrite(0, 0, hongkong004, 0);
-      break;
-    case 7:
-      Sprites::drawOverwrite(0, 0, hongkong005, 0);
-      break;
-    case 8:
+    case 1:
       Sprites::drawOverwrite(0, 0, hongkongflag, 0);
       break;
-    case 9:
-      arduboy.setTextSize(1);
-      arduboy.setTextBackground(WHITE);
-      arduboy.setTextColor(BLACK);
-      arduboy.setTextWrap(true);
-      arduboy.setCursor(0, 0);
-      arduboy.print(dialog001);
+    case 2:
+      Sprites::drawOverwrite(0, 0, hongkong002, 0);
+      break;
+    case 3:
+      tinyfont.setCursor(10, 50);
+      tinyfont.print("SUZY");
+      tinyfont.setCursor(48, 2);
+      tinyfont.print(dialog001);
+      Sprites::drawOverwrite(8, 16, woman, 0);
+      break;
+    case 4:
+      tinyfont.setCursor(10, 50);
+      tinyfont.print("SUZY");
+      tinyfont.setCursor(48, 2);
+      tinyfont.print(dialog002);
+      Sprites::drawOverwrite(8, 16, woman, 0);
+      break;
+    case 5:
+      tinyfont.setCursor(10, 50);
+      tinyfont.print("SUZY");
+      tinyfont.setCursor(48, 2);
+      tinyfont.print(dialog003);
+      Sprites::drawOverwrite(8, 16, woman, 0);
+      break;
+    case 6:
+      tinyfont.setCursor(10, 50);
+      tinyfont.print("SUZY");
+      tinyfont.setCursor(48, 2);
+      tinyfont.print(dialog004);
+      Sprites::drawOverwrite(8, 16, woman, 0);
+      break;
+    case 7:
+      tinyfont.setCursor(10, 50);
+      tinyfont.print("SUZY");
+      tinyfont.setCursor(48, 2);
+      tinyfont.print(dialog005);
+      Sprites::drawOverwrite(8, 16, woman, 0);
+      break;
+    case 8:
+      tinyfont.setCursor(10, 50);
+      tinyfont.print("SUZY");
+      tinyfont.setCursor(48, 2);
+      tinyfont.print(dialog006);
+      Sprites::drawOverwrite(8, 16, woman, 0);
       break;
   }
 
   if ( arduboy.justPressed(A_BUTTON) ) {
     current_step += 1;
-    if ( current_step > 9 ) {
+    if ( current_step > 8 ) {
       current_step = 0;
     }
   }
