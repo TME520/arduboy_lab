@@ -142,13 +142,43 @@ const unsigned char PROGMEM woman[] =
 
 int current_step = 0;
 
-String dialog000 = "Simple string.";
+String dialog000 = "Simple text.";
 String dialog001 = "The quick brown\nfox jumps over\nthe lazy dog.";
-String dialog002 = "Il me faut la\nconsolation des\nOmbres\nEt l`obscurité\nde la nuit.";
+String dialog002 = "Il me faut la\nconsolation des\nOmbres\nEt l\`obscurité\nde la nuit.";
 String dialog003 = "abcdefghijklmno\npqrstuvwxyz\nABCDEFGHIJKLMNO\nPQRSTUVWXYZ\n0123456789\n";
-String dialog004 = "IL ME FAUT LA\nCONSOLATION DES\nOMBRES\nET L`OBSCURITÉ\nDE LA NUIT.";
-String dialog005 = "    -=***=-   \nIl me faut la\n\nconsolation des\n\nOmbres\n\nEt l`obscurité\n\nde la nuit.\n    -=***=-   \n";
-String dialog006 = "0123456789ABCDEF\n1              \n2              \n3              \n4              \n5              \n6              \n7              \n8              \n9              \nA              \nB              \n";
+String dialog004 = "IL ME FAUT LA\nCONSOLATION DES\nOMBRES\nET L\`OBSCURITÉ\nDE LA NUIT.";
+String dialog005 = "    -=***=-   \nIl me faut la\n\nconsolation des\n\nOmbres\n\nEt l\`obscurité\n\nde la nuit.\n    -=***=-   \n";
+String dialog006 = "0123456789ABCDEF\n0123456789ABCDEF\n0123456789ABCDEF\n0123456789ABCDEF\n0123456789ABCDEF\n0123456789ABCDEF\n\n";
+
+const char storyLine1[] PROGMEM = "Everyone lost a hero";
+const char storyLine2[] PROGMEM = "the day Harambe";
+const char storyLine3[] PROGMEM = "died.";  
+const char storyLine4[] PROGMEM = "";                
+const char storyLine5[] PROGMEM = "Some thought it was";
+const char storyLine6[] PROGMEM = "unfair.";
+const char storyLine7[] PROGMEM = "Others took action!";
+const char storyLine9[] PROGMEM = "In a far corner of";
+const char storyLine10[] PROGMEM = "the world a plan was";
+const char storyLine11[] PROGMEM = "hatched to enable...";
+const char * const storyLines[] PROGMEM =
+{
+  storyLine1,
+  storyLine2,
+  storyLine3,
+  storyLine4,
+  storyLine5,
+  storyLine6,
+  storyLine4,
+  storyLine7,
+  storyLine4,
+  storyLine9,
+  storyLine10,
+  storyLine11
+};
+#define STORYLINES 12
+
+char tBuffer[22];
+//arduboy.println(strcpy_P(tBuffer, (char*)pgm_read_word(&(storyLines[idx]))));
 
 void setup() {
   arduboy.begin();
@@ -160,11 +190,27 @@ void dialog(unsigned char PROGMEM portrait[], String charactername, String text)
   // Display a dialog window
   // portrait: 32x32 b&w picture
   // charactername: 6 chars long string
-  // text: 15x12 180 chars long string
+  // text: 16x12 xxx chars long string
   tinyfont.setCursor(10, 50);
   tinyfont.print(charactername);
   tinyfont.setCursor(48, 2);
   tinyfont.print(text);
+  tinyfont.setCursor(0, 0);
+  tinyfont.print(text.length());
+  Sprites::drawOverwrite(8, 16, portrait, 0);
+}
+
+void dialog2(unsigned char PROGMEM portrait[], String charactername, String text) {
+  // Display a dialog window
+  // portrait: 32x32 b&w picture
+  // charactername: 6 chars long string
+  // text: 16x12 xxx chars long string
+  tinyfont.setCursor(10, 50);
+  tinyfont.print(charactername);
+  tinyfont.setCursor(48, 2);
+  tinyfont.print(text);
+  tinyfont.setCursor(0, 0);
+  tinyfont.print(text.length());
   Sprites::drawOverwrite(8, 16, portrait, 0);
 }
 
@@ -187,42 +233,22 @@ void loop() {
       Sprites::drawOverwrite(0, 0, hongkong002, 0);
       break;
     case 3:
-      dialog(woman, "SUZY", dialog000);
+      dialog(woman, "SUZY", dialog001);
       break;
     case 4:
-      tinyfont.setCursor(10, 50);
-      tinyfont.print("SUZY");
-      tinyfont.setCursor(48, 2);
-      tinyfont.print(dialog002);
-      Sprites::drawOverwrite(8, 16, woman, 0);
+      dialog(woman, "SUZY", dialog002);
       break;
     case 5:
-      tinyfont.setCursor(10, 50);
-      tinyfont.print("SUZY");
-      tinyfont.setCursor(48, 2);
-      tinyfont.print(dialog003);
-      Sprites::drawOverwrite(8, 16, woman, 0);
+      dialog(woman, "SUZY", dialog003);
       break;
     case 6:
-      tinyfont.setCursor(10, 50);
-      tinyfont.print("SUZY");
-      tinyfont.setCursor(48, 2);
-      tinyfont.print(dialog004);
-      Sprites::drawOverwrite(8, 16, woman, 0);
+      dialog(woman, "SUZY", dialog004);
       break;
     case 7:
-      tinyfont.setCursor(10, 50);
-      tinyfont.print("SUZY");
-      tinyfont.setCursor(48, 2);
-      tinyfont.print(dialog005);
-      Sprites::drawOverwrite(8, 16, woman, 0);
+      dialog(woman, "SUZY", dialog005);
       break;
     case 8:
-      tinyfont.setCursor(10, 50);
-      tinyfont.print("012345");
-      tinyfont.setCursor(48, 2);
-      tinyfont.print(dialog006);
-      Sprites::drawOverwrite(8, 16, woman, 0);
+      dialog2(woman, "SUZY", strcpy_P(tBuffer, (char*)pgm_read_word(&(storyLines[5]))));
       break;
   }
 
