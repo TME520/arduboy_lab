@@ -142,6 +142,7 @@ const unsigned char PROGMEM woman[] =
 
 int current_step = 0;
 
+String dialog000 = "Simple string.";
 String dialog001 = "The quick brown\nfox jumps over\nthe lazy dog.";
 String dialog002 = "Il me faut la\nconsolation des\nOmbres\nEt l`obscurité\nde la nuit.";
 String dialog003 = "abcdefghijklmno\npqrstuvwxyz\nABCDEFGHIJKLMNO\nPQRSTUVWXYZ\n0123456789\n";
@@ -153,6 +154,18 @@ void setup() {
   arduboy.begin();
   arduboy.setFrameRate(30);
   arduboy.clear();
+}
+
+void dialog(unsigned char PROGMEM portrait[], String charactername, String text) {
+  // Display a dialog window
+  // portrait: 32x32 b&w picture
+  // charactername: 6 chars long string
+  // text: 15x12 180 chars long string
+  tinyfont.setCursor(10, 50);
+  tinyfont.print(charactername);
+  tinyfont.setCursor(48, 2);
+  tinyfont.print(text);
+  Sprites::drawOverwrite(8, 16, portrait, 0);
 }
 
 void loop() {
@@ -174,11 +187,7 @@ void loop() {
       Sprites::drawOverwrite(0, 0, hongkong002, 0);
       break;
     case 3:
-      tinyfont.setCursor(10, 50);
-      tinyfont.print("SUZY");
-      tinyfont.setCursor(48, 2);
-      tinyfont.print(dialog001);
-      Sprites::drawOverwrite(8, 16, woman, 0);
+      dialog(woman, "SUZY", dialog000);
       break;
     case 4:
       tinyfont.setCursor(10, 50);
