@@ -142,43 +142,26 @@ const unsigned char PROGMEM woman[] =
 
 int current_step = 0;
 
-String dialog000 = "Simple text.";
-String dialog001 = "The quick brown\nfox jumps over\nthe lazy dog.";
-String dialog002 = "Il me faut la\nconsolation des\nOmbres\nEt l\`obscurité\nde la nuit.";
-String dialog003 = "abcdefghijklmno\npqrstuvwxyz\nABCDEFGHIJKLMNO\nPQRSTUVWXYZ\n0123456789\n";
-String dialog004 = "IL ME FAUT LA\nCONSOLATION DES\nOMBRES\nET L\`OBSCURITÉ\nDE LA NUIT.";
-String dialog005 = "    -=***=-   \nIl me faut la\n\nconsolation des\n\nOmbres\n\nEt l\`obscurité\n\nde la nuit.\n    -=***=-   \n";
-String dialog006 = "0123456789ABCDEF\n0123456789ABCDEF\n0123456789ABCDEF\n0123456789ABCDEF\n0123456789ABCDEF\n0123456789ABCDEF\n\n";
-
-const char storyLine1[] PROGMEM = "Everyone lost a hero";
-const char storyLine2[] PROGMEM = "the day Harambe";
-const char storyLine3[] PROGMEM = "died.";  
-const char storyLine4[] PROGMEM = "";                
-const char storyLine5[] PROGMEM = "Some thought it was";
-const char storyLine6[] PROGMEM = "unfair.";
-const char storyLine7[] PROGMEM = "Others took action!";
-const char storyLine9[] PROGMEM = "In a far corner of";
-const char storyLine10[] PROGMEM = "the world a plan was";
-const char storyLine11[] PROGMEM = "hatched to enable...";
-const char * const storyLines[] PROGMEM =
+const char dialog000[] PROGMEM = "Simple text.";
+const char dialog001[] PROGMEM = "The quick brown\nfox jumps over\nthe lazy dog.";
+const char dialog002[] PROGMEM = "Il me faut la\nconsolation des\nOmbres\nEt l\`obscurité\nde la nuit.";  
+const char dialog003[] PROGMEM = "abcdefghijklmno\npqrstuvwxyz\nABCDEFGHIJKLMNO\nPQRSTUVWXYZ\n0123456789\n";                
+const char dialog004[] PROGMEM = "IL ME FAUT LA\nCONSOLATION DES\nOMBRES\nET L\`OBSCURITÉ\nDE LA NUIT.";
+const char dialog005[] PROGMEM = "    -=***=-   \nIl me faut la\n\nconsolation des\n\nOmbres\n\nEt l\`obscurité\n\nde la nuit.\n    -=***=-   \n";
+const char dialog006[] PROGMEM = "0123456789ABCDEF\n0123456789ABCDEF\n0123456789ABCDEF\n0123456789ABCDEF\n0123456789ABCDEF\n0123456789ABCDEF\n0123456789ABCDEF\n0123456789ABCDEF\n0123456789ABCDEF\n0123456789ABCDEF\n0123456789ABCDEF\n0123456789ABCDEF\n";
+const char * const dialogs[] PROGMEM =
 {
-  storyLine1,
-  storyLine2,
-  storyLine3,
-  storyLine4,
-  storyLine5,
-  storyLine6,
-  storyLine4,
-  storyLine7,
-  storyLine4,
-  storyLine9,
-  storyLine10,
-  storyLine11
+  dialog000,
+  dialog001,
+  dialog002,
+  dialog003,
+  dialog004,
+  dialog005,
+  dialog006
 };
-#define STORYLINES 12
+#define DIALOGS 7
 
-char tBuffer[22];
-//arduboy.println(strcpy_P(tBuffer, (char*)pgm_read_word(&(storyLines[idx]))));
+char tBuffer[205];
 
 void setup() {
   arduboy.begin();
@@ -190,21 +173,7 @@ void dialog(unsigned char PROGMEM portrait[], String charactername, String text)
   // Display a dialog window
   // portrait: 32x32 b&w picture
   // charactername: 6 chars long string
-  // text: 16x12 xxx chars long string
-  tinyfont.setCursor(10, 50);
-  tinyfont.print(charactername);
-  tinyfont.setCursor(48, 2);
-  tinyfont.print(text);
-  tinyfont.setCursor(0, 0);
-  tinyfont.print(text.length());
-  Sprites::drawOverwrite(8, 16, portrait, 0);
-}
-
-void dialog2(unsigned char PROGMEM portrait[], String charactername, String text) {
-  // Display a dialog window
-  // portrait: 32x32 b&w picture
-  // charactername: 6 chars long string
-  // text: 16x12 xxx chars long string
+  // text: 16x12 192 chars long string
   tinyfont.setCursor(10, 50);
   tinyfont.print(charactername);
   tinyfont.setCursor(48, 2);
@@ -233,28 +202,31 @@ void loop() {
       Sprites::drawOverwrite(0, 0, hongkong002, 0);
       break;
     case 3:
-      dialog(woman, "SUZY", dialog001);
+      dialog(woman, "SUZY", strcpy_P(tBuffer, (char*)pgm_read_word(&(dialogs[0]))));
       break;
     case 4:
-      dialog(woman, "SUZY", dialog002);
+      dialog(woman, "SUZY", strcpy_P(tBuffer, (char*)pgm_read_word(&(dialogs[1]))));
       break;
     case 5:
-      dialog(woman, "SUZY", dialog003);
+      dialog(woman, "SUZY", strcpy_P(tBuffer, (char*)pgm_read_word(&(dialogs[2]))));
       break;
     case 6:
-      dialog(woman, "SUZY", dialog004);
+      dialog(woman, "SUZY", strcpy_P(tBuffer, (char*)pgm_read_word(&(dialogs[3]))));
       break;
     case 7:
-      dialog(woman, "SUZY", dialog005);
+      dialog(woman, "SUZY", strcpy_P(tBuffer, (char*)pgm_read_word(&(dialogs[4]))));
       break;
     case 8:
-      dialog2(woman, "SUZY", strcpy_P(tBuffer, (char*)pgm_read_word(&(storyLines[5]))));
+      dialog(woman, "SUZY", strcpy_P(tBuffer, (char*)pgm_read_word(&(dialogs[5]))));
+      break;
+    case 9:
+      dialog(woman, "SUZY", strcpy_P(tBuffer, (char*)pgm_read_word(&(dialogs[6]))));
       break;
   }
 
   if ( arduboy.justPressed(A_BUTTON) ) {
     current_step += 1;
-    if ( current_step > 8 ) {
+    if ( current_step > 9 ) {
       current_step = 0;
     }
   }
