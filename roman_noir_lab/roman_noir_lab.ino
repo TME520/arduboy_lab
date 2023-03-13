@@ -343,37 +343,17 @@ void loop() {
         arduboy.clear();
         for ( int backgroundx = xoffseteven; backgroundx < 128; backgroundx += 8 ) {
           for ( int backgroundy = 0; backgroundy < 64; backgroundy += 8 ) {
-            Sprites::drawOverwrite(backgroundx, backgroundy, wave, 0);
-            Sprites::drawOverwrite(10, 4, wave, 0);
-            Sprites::drawOverwrite(1, 12, wave, 0);
-            Sprites::drawOverwrite(2, 20, wave, 0);
-            Sprites::drawOverwrite(3, 28, wave, 0);
-            Sprites::drawOverwrite(4, 36, wave, 0);
-            Sprites::drawOverwrite(5, 44, wave, 0);
-            Sprites::drawOverwrite(6, 52, wave, 0);
-            Sprites::drawOverwrite(7, 60, wave, 0);
+            Sprites::drawSelfMasked(backgroundx, backgroundy, wave, 0);
           }
         }
-        for ( int backgroundx = abs(xoffseteven); backgroundx < 128; backgroundx += 8 ) {
-          /*
+        for ( int backgroundx = abs(xoffseteven)-4; backgroundx < 128; backgroundx += 8 ) {
           for ( int backgroundy = 4; backgroundy < 64; backgroundy += 8 ) {
-            Sprites::drawOverwrite(backgroundx, backgroundy, wave, 0);
+            Sprites::drawSelfMasked(backgroundx, backgroundy, wave, 0);
           }
-          // Sprites::drawOverwrite(backgroundx, 4, wave, 0);
-          Sprites::drawOverwrite(10, 4, wave, 0);
-          Sprites::drawOverwrite(10, 12, wave, 0);
-          Sprites::drawOverwrite(10, 20, wave, 0);
-          Sprites::drawOverwrite(10, 28, wave, 0);
-          Sprites::drawOverwrite(0, 36, wave, 0);
-          Sprites::drawOverwrite(0, 44, wave, 0);
-          Sprites::drawOverwrite(0, 52, wave, 0);
-          Sprites::drawOverwrite(0, 60, wave, 0);
-          */
         }
-        delay(20);
         arduboy.display();
+        delay(100);
       }
-      // Uneven lines
       break;
   }
 
