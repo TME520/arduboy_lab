@@ -1,12 +1,3 @@
-= Boston =
-
-- Office
-- Airport
-- Bar
-
-In-game order: [1] Bar ---> [2] Office ---> [3] Airport
-
-
 = Hong-Kong =
 
 - Airport
