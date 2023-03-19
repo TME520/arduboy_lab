@@ -1,0 +1,33 @@
+# TITLE
+
+- Continue | New game
+
+# TRANSITION
+
+- All black
+
+# NARRATION
+
+- Black bg, white txt
+
+# MAPBIG
+
+- Waves, white HK silhouette
+
+# GAMEMAP
+# PHONE
+# SAVE
+
+- Save, load
+
+# DIALOG
+# INTRO
+# LOCATION
+
+
+====================
+function manageScreen(type, bg, fg, data)
+
+A
+B
+Up, Down, Left, Right
