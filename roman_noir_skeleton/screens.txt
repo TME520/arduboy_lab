@@ -1,0 +1,72 @@
+# TITLE
+
+- Continue | New game
+- Buttons: A = Confirm, UP/DOWN = Select 
+
+# TRANSITION
+
+- All black
+- Buttons: None
+
+# NARRATION
+
+- Black bg, white txt
+- Buttons: A/B = Skip
+
+# MAPBIG
+
+- Waves, white HK silhouette
+- Buttons: A/B = Leave
+
+# GAMEMAPSCR
+
+- Detailed game map, several screens, screen selection
+- Buttons: A = Select current map, B = Exit map, UP/DOWN/LEFT/RIGHT = Move through available maps
+
+# GAMEMAPLOC
+
+- Detailed game map, destination selection
+- Buttons: A = Select current location, B = Go back to GAMEMAPSCR, UP/DOWN/LEFT/RIGHT = Jump between available locations
+
+# PHONEHOME
+
+- Receive messages from NPCs, pick predefined answers
+- Buttons: A = Select message, B = Exit, UP/DOWN = Jump between messages
+
+# PHONEMSG
+
+- Read messages on the phone
+- Buttons: A = Select answer, B = Back to PHONEHOME, UP/DOWN = Scroll through message + Jump between answers
+
+# SAVE
+
+- Save, load
+- Buttons: n/a
+
+# DIALOG
+
+- Dialogs with NPCs
+- Buttons: A = Select answer, B = Exit, UP/DOWN = Scroll through dialog + Jump between answers
+
+# INTRO
+
+- Introduces the story of the game
+- Buttons: A/B = Skip
+
+# LOCATION
+
+- Splash screen related to the current location
+- Buttons: n/a
+
+# NOTEBOOK
+
+- Quest log
+- Buttons: A/B = Exit, UP/DOWN = Scroll through the notes
+
+
+====================
+function manageScreen(type, bg, fg, data)
+
+A
+B
+Up, Down, Left, Right

@@ -1,0 +1,17 @@
+Suzy Gao Xing, a 26 years-old journalist living in Hong-Kong, suddenly disappeared. Her sister, Beatrice Gao Xing, engages a private detective in order to look for her.
+
+Q1: Why not work with the local police ?
+A1: Beatrice Gao Xing doesn't want to work with HK police, because she thinks Suzy might have disappeared for political reasons.
+
+Q2: How much time should be allocated to the private detective ?
+A2: Budget allows for about 2 months of work.
+
+Q3: Why did Beatrice chose to work with a French private detective ?
+A3: Beatrice picked a French private detective, because her family is French. Also, working with a French speaking professional is easier for her. A local private detective might have been at least as competent, but again, she fears political interferences.
+
+Q4: What is the personal opinion of Beatrice ?
+A4: Beatrice is not sure what happened to her sister Suzy, but considering she was a journalist working in Hong-Kong writing somewhat political articles, it's not hard to see how that could have gone wrong.
+
+Q5: What is the truth ?
+A5: Check the "spoilers.txt" file if you want to know the full truth.
+
