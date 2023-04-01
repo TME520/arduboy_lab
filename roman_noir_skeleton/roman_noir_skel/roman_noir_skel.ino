@@ -91,10 +91,12 @@ const unsigned char PROGMEM wave[] =
 0x02, 0x01, 0x01, 0x02, 
 };
 
-int current_step = 0;
+int current_item = 0;
+int selected_item = 0;
+int current_screen = 0;
 
-const char dialog000[] PROGMEM = "Simple text.";
-const char dialog001[] PROGMEM = "The quick brown\nfox jumps over\nthe lazy dog.";
+const char dialog000[] PROGMEM = "= Menu 1/2\n\nTITLE\nTRANSITION\nNARRATION\nMAPBIG\nGAMEMAPSCR\nGAMEMAPLOC\nPHONEHOME\nPHONEMSG\nSAVE\n";
+const char dialog001[] PROGMEM = "= Menu 2/2\n\nDIALOG\nINTRO\nLOCATION\nNOTEBOOK\n";
 const char dialog002[] PROGMEM = "Il me faut la\nconsolation des\nOmbres\nEt l\`obscurité\nde la nuit.";  
 const char dialog003[] PROGMEM = "abcdefghijklmno\npqrstuvwxyz\nABCDEFGHIJKLMNO\nPQRSTUVWXYZ\n0123456789\n";                
 const char dialog004[] PROGMEM = "IL ME FAUT LA\nCONSOLATION DES\nOMBRES\nET L\`OBSCURITÉ\nDE LA NUIT.";
@@ -141,81 +143,20 @@ void loop() {
 
   arduboy.clear();
   arduboy.pollButtons();
-
-  switch ( current_step ) {
+  
+  switch ( current_screen ) {
     case 0:
+      // MENU
       Sprites::drawOverwrite(0, 0, title, 0);
-      break;
-    case 1:
-      Sprites::drawOverwrite(0, 0, hongkongflag, 0);
-      break;
-    case 2:
-      Sprites::drawOverwrite(0, 0, hongkong001, 0);
-      break;
-    case 3:
-      dialog(woman, "SUZY", strcpy_P(tBuffer, (char*)pgm_read_word(&(dialogs[0]))));
-      break;
-    case 4:
-      dialog(woman, "SUZY", strcpy_P(tBuffer, (char*)pgm_read_word(&(dialogs[1]))));
-      break;
-    case 5:
-      dialog(woman, "SUZY", strcpy_P(tBuffer, (char*)pgm_read_word(&(dialogs[2]))));
-      break;
-    case 6:
-      dialog(woman, "SUZY", strcpy_P(tBuffer, (char*)pgm_read_word(&(dialogs[3]))));
-      break;
-    case 7:
-      dialog(woman, "SUZY", strcpy_P(tBuffer, (char*)pgm_read_word(&(dialogs[4]))));
-      break;
-    case 8:
-      dialog(woman, "SUZY", strcpy_P(tBuffer, (char*)pgm_read_word(&(dialogs[5]))));
-      break;
-    case 9:
-      dialog(woman, "SUZY", strcpy_P(tBuffer, (char*)pgm_read_word(&(dialogs[6]))));
-      break;
-    case 10:
-      for ( int backgroundx = 0; backgroundx < 128; backgroundx += 8 ) {
-        for ( int backgroundy = 0; backgroundy < 64; backgroundy += 4 ) {
-          Sprites::drawOverwrite(backgroundx, backgroundy, wave, 0);
-        }
-      }
-      break;
-    case 11:
-      Sprites::drawOverwrite(0, 0, wave, 0);
-      Sprites::drawOverwrite(-1, 8, wave, 0);
-      break;
-    case 12:
-      for ( int xoffseteven = 0; xoffseteven > -8; xoffseteven -= 1 ) {
-        arduboy.clear();
-        for ( int backgroundx = xoffseteven; backgroundx < 128; backgroundx += 8 ) {
-          for ( int backgroundy = 0; backgroundy < 64; backgroundy += 8 ) {
-            Sprites::drawSelfMasked(backgroundx, backgroundy, wave, 0);
-          }
-        }
-        for ( int backgroundx = abs(xoffseteven)-4; backgroundx < 128; backgroundx += 8 ) {
-          for ( int backgroundy = 4; backgroundy < 64; backgroundy += 8 ) {
-            Sprites::drawSelfMasked(backgroundx, backgroundy, wave, 0);
-          }
-        }
-        Sprites::drawSelfMasked(22, 0, hkmapbig, 0);
-        arduboy.display();
-        delay(30);
-      }
-      break;
-    case 13:
-      Sprites::drawOverwrite(0, 0, notebook, 0);
-      arduboy.setTextSize(1);
-      arduboy.setTextWrap(true);
-      arduboy.setTextColor(BLACK);
-      arduboy.print("\n  > Go see Pim\n  > Buy matches\n  > Call Chris Mophet");
       break;
   }
 
-  if ( arduboy.justPressed(A_BUTTON) ) {
-    current_step += 1;
-    if ( current_step > 13 ) {
-      current_step = 0;
-    }
+  if ( arduboy.justPressed(UP_BUTTON) ) {
+    // UP
+  } else if ( arduboy.justPressed(DOWN_BUTTON) ) {
+    // DOWN
+  } else if ( arduboy.justPressed(A_BUTTON) ) {
+    // A
   }
   
   arduboy.display();
