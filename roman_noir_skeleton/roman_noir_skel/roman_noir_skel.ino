@@ -95,6 +95,8 @@ int current_item = 0;
 int selected_item = 0;
 int current_screen = 0;
 
+bool goBackToMenu = true;
+
 const char menuEntry000[] PROGMEM = "TITLE";
 const char menuEntry001[] PROGMEM = "TRANSITION";
 const char menuEntry002[] PROGMEM = "NARRATION";
@@ -186,6 +188,23 @@ int menu(int firstEntry, int lastEntry, int currentEntry) {
     } else if ( arduboy.justPressed(DOWN_BUTTON) ) {
       // DOWN
       currentEntry += 1;
+      if ( currentEntry > currentLastEntry ) {
+        if ( currentEntry > lastEntry ) {
+          // Reached bottom of the list
+          // Looping back to the top
+          currentFirstEntry = firstEntry;
+          currentLastEntry = currentFirstEntry + 8;
+          currentEntry = currentFirstEntry;
+        } else {
+          // Going one page down
+          currentLastEntry += 8;
+          if ( currentLastEntry > lastEntry ) {
+            currentLastEntry = lastEntry;
+          }
+          currentFirstEntry += 8;
+          currentEntry = currentFirstEntry;
+        }
+      }
     } else if ( arduboy.justPressed(A_BUTTON) ) {
       // A
       exitMenu = true;
@@ -244,21 +263,95 @@ void loop() {
 
   arduboy.clear();
   arduboy.pollButtons();
+
+  if ( goBackToMenu == true ) {
+    current_screen = menu(0, 12, 0);
+  }
   
   switch ( current_screen ) {
     case 0:
-      // MENU
-      current_screen = menu(0, 12, 0);
+      // TITLE
+      tinyfont.setCursor(0, 0);
+      tinyfont.print("TITLE");
+      goBackToMenu = false;
+      break;
+    case 1:
+      // TRANSITION
+      tinyfont.setCursor(0, 0);
+      tinyfont.print("TRANSITION");
+      goBackToMenu = false;
+      break;
+    case 2:
+      // NARRATION
+      tinyfont.setCursor(0, 0);
+      tinyfont.print("NARRATION");
+      goBackToMenu = false;
+      break;
+    case 3:
+      // MAPBIG
+      tinyfont.setCursor(0, 0);
+      tinyfont.print("MAPBIG");
+      goBackToMenu = false;
+      break;
+    case 4:
+      // GAMEMAPSCR
+      tinyfont.setCursor(0, 0);
+      tinyfont.print("GAMEMAPSCR");
+      goBackToMenu = false;
+      break;
+    case 5:
+      // GAMEMAPLOC
+      tinyfont.setCursor(0, 0);
+      tinyfont.print("GAMEMAPLOC");
+      goBackToMenu = false;
+      break;
+    case 6:
+      // PHONEHOME
+      tinyfont.setCursor(0, 0);
+      tinyfont.print("PHONEHOME");
+      goBackToMenu = false;
+      break;
+    case 7:
+      // PHONEMSG
+      tinyfont.setCursor(0, 0);
+      tinyfont.print("PHONEMSG");
+      goBackToMenu = false;
+      break;
+    case 8:
+      // SAVE
+      tinyfont.setCursor(0, 0);
+      tinyfont.print("SAVE");
+      goBackToMenu = false;
+      break;
+    case 9:
+      // DIALOG
+      tinyfont.setCursor(0, 0);
+      tinyfont.print("DIALOG");
+      goBackToMenu = false;
+      break;
+    case 10:
+      // INTRO
+      tinyfont.setCursor(0, 0);
+      tinyfont.print("INTRO");
+      goBackToMenu = false;
+      break;
+    case 11:
+      // LOCATION
+      tinyfont.setCursor(0, 0);
+      tinyfont.print("LOCATION");
+      goBackToMenu = false;
+      break;
+    case 12:
+      // NOTEBOOK
+      tinyfont.setCursor(0, 0);
+      tinyfont.print("NOTEBOOK");
+      goBackToMenu = false;
       break;
   }
 
-  if ( arduboy.justPressed(UP_BUTTON) ) {
-    // UP
-  } else if ( arduboy.justPressed(DOWN_BUTTON) ) {
-    // DOWN
-  } else if ( arduboy.justPressed(A_BUTTON) ) {
-    // A
+  if ( arduboy.justPressed(B_BUTTON) ) {
+    goBackToMenu = true;
   }
-  
+
   arduboy.display();
 }
