@@ -152,13 +152,14 @@ int menu(int firstEntry, int lastEntry, int currentEntry) {
   int changeScreenAt = 0;
   int currentYPos = 0;
   String prefixArrow = "";
+  String suffixArrow = "";
   int currentFirstEntry = firstEntry;
-  int currentLastEntry = lastEntry;
+  int currentLastEntry = firstEntry + 8;
   bool exitMenu = false;
   while ( exitMenu == false ) {
     arduboy.clear();
     arduboy.pollButtons();
-    changeScreenAt = currentFirstEntry + 9;
+    changeScreenAt = currentLastEntry;
     if ( changeScreenAt > currentLastEntry ) {
       changeScreenAt = currentLastEntry;
     }
@@ -166,44 +167,51 @@ int menu(int firstEntry, int lastEntry, int currentEntry) {
       // UP
       currentEntry -= 1;
       if ( currentEntry < currentFirstEntry ) {
-        currentFirstEntry = currentFirstEntry - 9;
-        if ( currentFirstEntry < firstEntry ) {
-          currentFirstEntry = firstEntry;
-        }
-        currentLastEntry = currentFirstEntry + 9;
-        if ( currentLastEntry > lastEntry ) {
+        if ( currentEntry < firstEntry ) {
+          // Reached top of the list
+          // Looping back to the bottom
+          currentFirstEntry = lastEntry - 8;
           currentLastEntry = lastEntry;
+          currentEntry = lastEntry;
+        } else {
+          // Going one page up
+          currentFirstEntry -= 8;
+          if ( currentFirstEntry < firstEntry ) {
+            currentFirstEntry = firstEntry;
+          }
+          currentLastEntry = currentFirstEntry + 8;
+          currentEntry = currentLastEntry;
         }
       }
     } else if ( arduboy.justPressed(DOWN_BUTTON) ) {
       // DOWN
       currentEntry += 1;
-      if ( currentEntry > currentLastEntry ) {
-        currentFirstEntry = currentFirstEntry + 9;
-        if ( currentFirstEntry > lastEntry ) {
-          currentFirstEntry = lastEntry;
-        }
-        currentLastEntry = currentFirstEntry + 9;
-        if ( currentLastEntry > lastEntry ) {
-          currentLastEntry = lastEntry;
-        }
-      }
     } else if ( arduboy.justPressed(A_BUTTON) ) {
       // A
       exitMenu = true;
     }
-    currentYPos = 2;
+    tinyfont.setCursor(48, 2);
+    tinyfont.print("= Menu =");
+    currentYPos = 12;
     for (int i = currentFirstEntry; i <= currentLastEntry; i += 1) {
       tinyfont.setCursor(48, currentYPos);
       if ( i == currentEntry ) {
         // meh
         prefixArrow = "> ";
+        suffixArrow = " <";
       } else {
         prefixArrow = "";
+        suffixArrow="";
       }
-      tinyfont.print(prefixArrow + strcpy_P(tBuffer, (char*)pgm_read_word(&(menuEntries[i]))));
+      tinyfont.print(prefixArrow + strcpy_P(tBuffer, (char*)pgm_read_word(&(menuEntries[i]))) + suffixArrow);
       currentYPos += 5;
     }
+    tinyfont.setCursor(0, 0);
+    tinyfont.print(currentEntry);
+    tinyfont.setCursor(0, 5);
+    tinyfont.print(currentFirstEntry);
+    tinyfont.setCursor(0, 10);
+    tinyfont.print(currentLastEntry);
     arduboy.display();
   }
   return currentEntry;
