@@ -95,6 +95,37 @@ int current_item = 0;
 int selected_item = 0;
 int current_screen = 0;
 
+const char menuEntry000[] PROGMEM = "TITLE";
+const char menuEntry001[] PROGMEM = "TRANSITION";
+const char menuEntry002[] PROGMEM = "NARRATION";
+const char menuEntry003[] PROGMEM = "MAPBIG";
+const char menuEntry004[] PROGMEM = "GAMEMAPSCR";
+const char menuEntry005[] PROGMEM = "GAMEMAPLOC";
+const char menuEntry006[] PROGMEM = "PHONEHOME";
+const char menuEntry007[] PROGMEM = "PHONEMSG";
+const char menuEntry008[] PROGMEM = "SAVE";
+const char menuEntry009[] PROGMEM = "DIALOG";
+const char menuEntry010[] PROGMEM = "INTRO";
+const char menuEntry011[] PROGMEM = "LOCATION";
+const char menuEntry012[] PROGMEM = "NOTEBOOK";
+const char * const menuEntries[] PROGMEM =
+{
+  menuEntry000,
+  menuEntry001,
+  menuEntry002,
+  menuEntry003,
+  menuEntry004,
+  menuEntry005,
+  menuEntry006,
+  menuEntry007,
+  menuEntry008,
+  menuEntry009,
+  menuEntry010,
+  menuEntry011,
+  menuEntry012
+};
+#define MENUENTRIES 13
+
 const char dialog000[] PROGMEM = "= Menu 1/2\n\nTITLE\nTRANSITION\nNARRATION\nMAPBIG\nGAMEMAPSCR\nGAMEMAPLOC\nPHONEHOME\nPHONEMSG\nSAVE\n";
 const char dialog001[] PROGMEM = "= Menu 2/2\n\nDIALOG\nINTRO\nLOCATION\nNOTEBOOK\n";
 const char dialog002[] PROGMEM = "Il me faut la\nconsolation des\nOmbres\nEt l\`obscurité\nde la nuit.";  
@@ -115,6 +146,68 @@ const char * const dialogs[] PROGMEM =
 #define DIALOGS 7
 
 char tBuffer[205];
+
+int menu(int firstEntry, int lastEntry, int currentEntry) {
+  // Returns integer pointing to new current_screen
+  int changeScreenAt = 0;
+  int currentYPos = 0;
+  String prefixArrow = "";
+  int currentFirstEntry = firstEntry;
+  int currentLastEntry = lastEntry;
+  bool exitMenu = false;
+  while ( exitMenu == false ) {
+    arduboy.clear();
+    arduboy.pollButtons();
+    changeScreenAt = currentFirstEntry + 9;
+    if ( changeScreenAt > currentLastEntry ) {
+      changeScreenAt = currentLastEntry;
+    }
+    if ( arduboy.justPressed(UP_BUTTON) ) {
+      // UP
+      currentEntry -= 1;
+      if ( currentEntry < currentFirstEntry ) {
+        currentFirstEntry = currentFirstEntry - 9;
+        if ( currentFirstEntry < firstEntry ) {
+          currentFirstEntry = firstEntry;
+        }
+        currentLastEntry = currentFirstEntry + 9;
+        if ( currentLastEntry > lastEntry ) {
+          currentLastEntry = lastEntry;
+        }
+      }
+    } else if ( arduboy.justPressed(DOWN_BUTTON) ) {
+      // DOWN
+      currentEntry += 1;
+      if ( currentEntry > currentLastEntry ) {
+        currentFirstEntry = currentFirstEntry + 9;
+        if ( currentFirstEntry > lastEntry ) {
+          currentFirstEntry = lastEntry;
+        }
+        currentLastEntry = currentFirstEntry + 9;
+        if ( currentLastEntry > lastEntry ) {
+          currentLastEntry = lastEntry;
+        }
+      }
+    } else if ( arduboy.justPressed(A_BUTTON) ) {
+      // A
+      exitMenu = true;
+    }
+    currentYPos = 2;
+    for (int i = currentFirstEntry; i <= currentLastEntry; i += 1) {
+      tinyfont.setCursor(48, currentYPos);
+      if ( i == currentEntry ) {
+        // meh
+        prefixArrow = "> ";
+      } else {
+        prefixArrow = "";
+      }
+      tinyfont.print(prefixArrow + strcpy_P(tBuffer, (char*)pgm_read_word(&(menuEntries[i]))));
+      currentYPos += 5;
+    }
+    arduboy.display();
+  }
+  return currentEntry;
+}
 
 void setup() {
   arduboy.begin();
@@ -147,7 +240,7 @@ void loop() {
   switch ( current_screen ) {
     case 0:
       // MENU
-      Sprites::drawOverwrite(0, 0, title, 0);
+      current_screen = menu(0, 12, 0);
       break;
   }
 
