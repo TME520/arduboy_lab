@@ -271,9 +271,18 @@ void loop() {
   switch ( current_screen ) {
     case 0:
       // TITLE
-      tinyfont.setCursor(0, 0);
-      tinyfont.print("TITLE");
       goBackToMenu = false;
+      while ( goBackToMenu == false) {
+        arduboy.clear();
+        Sprites::drawOverwrite(0, 0, title, 0);
+        tinyfont.setCursor(32, 32);
+        tinyfont.print("> New game\nContinue");
+        arduboy.pollButtons();
+        if ( arduboy.justPressed(A_BUTTON) ) {
+          goBackToMenu = true;
+        }
+        arduboy.display();
+      }
       break;
     case 1:
       // TRANSITION
