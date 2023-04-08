@@ -94,8 +94,10 @@ const unsigned char PROGMEM wave[] =
 int current_item = 0;
 int selected_item = 0;
 int current_screen = 0;
+int general_counter = 0;
 
 bool goBackToMenu = true;
+bool disableButtons = false;
 
 String textToDisplay = "";
 
@@ -302,7 +304,17 @@ void loop() {
       // TRANSITION
       tinyfont.setCursor(0, 0);
       tinyfont.print("TRANSITION");
+      tinyfont.setCursor(0,5);
+      tinyfont.print(general_counter);
       goBackToMenu = false;
+      disableButtons = true;
+      arduboy.delayShort(10);
+      general_counter += 40;
+      if ( general_counter >= 4000 ) {
+        general_counter = 0;
+        goBackToMenu = true;
+        disableButtons = false;
+      }
       break;
     case 2:
       // NARRATION
@@ -372,8 +384,10 @@ void loop() {
       break;
   }
 
-  if ( arduboy.justPressed(B_BUTTON) ) {
-    goBackToMenu = true;
+  if ( disableButtons == false ) {
+    if ( arduboy.justPressed(B_BUTTON) ) {
+      goBackToMenu = true;
+    }
   }
 
   arduboy.display();
