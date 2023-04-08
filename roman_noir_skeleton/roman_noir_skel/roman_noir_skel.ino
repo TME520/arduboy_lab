@@ -82,6 +82,7 @@ int selectedItem = 0;
 int currentScreen = 0;
 int generalCounter = 0;
 int generalSelector = 0;
+int xoffseteven = 0;
 
 bool goBackToMenu = true;
 bool disableButtons = false;
@@ -337,9 +338,34 @@ void loop() {
       break;
     case 3:
       // MAPBIG
+      xoffseteven -= 1;
+      if ( xoffseteven < -8 ) {
+        xoffseteven = 0;
+      }
+      for ( int backgroundx = xoffseteven; backgroundx < 128; backgroundx += 8 ) {
+        for ( int backgroundy = 0; backgroundy < 64; backgroundy += 8 ) {
+          Sprites::drawSelfMasked(backgroundx, backgroundy, wave, 0);
+        }
+      }
+      for ( int backgroundx = abs(xoffseteven)-4; backgroundx < 128; backgroundx += 8 ) {
+        for ( int backgroundy = 4; backgroundy < 64; backgroundy += 8 ) {
+          Sprites::drawSelfMasked(backgroundx, backgroundy, wave, 0);
+        }
+      }
+      Sprites::drawSelfMasked(22, 0, hkmapbig, 0);
       tinyfont.setCursor(0, 0);
       tinyfont.print("MAPBIG");
       goBackToMenu = false;
+      tinyfont.setCursor(0,5);
+      tinyfont.print(generalCounter);
+      tinyfont.setCursor(0,10);
+      tinyfont.print(xoffseteven);
+      arduboy.delayShort(10);
+      generalCounter += 40;
+      if ( generalCounter >= 4000 ) {
+        generalCounter = 0;
+        goBackToMenu = true;
+      }
       break;
     case 4:
       // GAMEMAPSCR
@@ -400,6 +426,7 @@ void loop() {
   if ( disableButtons == false ) {
     if ( arduboy.justPressed(B_BUTTON) ) {
       goBackToMenu = true;
+      generalCounter = 0;
     }
   }
 
