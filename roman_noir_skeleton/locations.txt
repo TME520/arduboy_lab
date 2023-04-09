@@ -4,27 +4,16 @@
 - Hotel
 - Empty warehouse
 - School
-- Bar 1
-- Bar 2
-- Restaurant
-- Phone
-- Lane
-- Parking
-- Map
-- POI [1..n]
-
-In-game order:
-
-A/ [1] Airport ---> [2] Hotel ---> [3] Map
-B/ [1] Airport ---> [2] Bar ---> [3] Empty warehouse ---> [4] Map
-
-Map gives access to:
-
-- Hotel / Warehouse
-- School
-- Bar 1 / Bar 2
+- Bar 1 (Quinary Bar)
+- Bar 2 (Foxglove)
 - Restaurant
 - Lane
 - Parking
-- POI [1..n]
-- Phone
+- Victoria Peak
+- Star Ferry
+- Tian Tan Buddha
+- Ocean Park
+- Ngong Ping 360 cable car
+- Wetland Park
+- HK Heritage Museum
+- Victoria Harbour
