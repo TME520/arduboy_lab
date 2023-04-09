@@ -616,6 +616,11 @@ void loop() {
       tinyfont.setCursor(0, 0);
       tinyfont.print("NOTEBOOK");
       goBackToMenu = false;
+      Sprites::drawOverwrite(0, 0, notebook, 0);
+      arduboy.setTextSize(1);
+      arduboy.setTextWrap(true);
+      arduboy.setTextColor(BLACK);
+      arduboy.print("\n  > Go see Pim\n  > Buy matches\n  > Call Chris Mophet");
       break;
   }
 
