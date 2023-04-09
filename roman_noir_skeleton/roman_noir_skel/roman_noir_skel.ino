@@ -590,9 +590,20 @@ void loop() {
       break;
     case 10:
       // INTRO
-      tinyfont.setCursor(0, 0);
-      tinyfont.print("INTRO");
       goBackToMenu = false;
+      while ( goBackToMenu == false ) {
+        arduboy.clear();
+        tinyfont.setCursor(0, 0);
+        tinyfont.print("INTRO");
+        tinyfont.setCursor(0, 15);
+        tinyfont.print("The story, characters and\nevents in this game\nare entirely fictional.\nAny similarities to actual\npeople, places and events\nare entirely coincidental.");
+        arduboy.pollButtons();
+        if ( arduboy.justPressed(A_BUTTON) || arduboy.justPressed(B_BUTTON) ) {
+          generalSelector = 0;
+          goBackToMenu = true;
+        }
+        arduboy.display();
+      }
       break;
     case 11:
       // LOCATION
