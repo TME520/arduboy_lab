@@ -289,6 +289,39 @@ const char * const narration[] PROGMEM =
 };
 #define NARRATION 4
 
+// Location: screen number, name, X, Y, discovery stage
+/*
+const String locations[27][5] = {
+  {"0", "Airport", "10", "20", "0"},
+  {"0", "Hotel", "10", "20", "0"},
+  {"0", "Warehouse", "10", "20", "0"},
+  {"1", "School", "10", "20", "0"},
+  {"1", "Quinary Bar", "10", "20", "1"},
+  {"1", "Foxglove Bar", "10", "20", "0"},
+  {"2", "Restaurant", "10", "20", "0"},
+  {"2", "Lane", "10", "20", "1"},
+  {"2", "Parking", "10", "20", "2"},
+  {"3", "Victoria Peak", "10", "20", "0"},
+  {"3", "Star Ferry", "10", "20", "0"},
+  {"3", "Tian Tan Buddha", "10", "20", "2"},
+  {"4", "Ocean Park", "10", "20", "2"},
+  {"4", "Ngong Ping 360 cable car", "10", "20", "0"},
+  {"4", "Wetland Park", "10", "20", "0"},
+  {"5", "HK Heritage Museum", "10", "20", "0"},
+  {"5", "Victoria Harbour", "10", "20", "0"},
+  {"5", "Temple Street", "10", "20", "3"},
+  {"6", "Murder 1", "10", "20", "4"},
+  {"6", "Murder 2", "10", "20", "5"},
+  {"6", "Murder 3", "10", "20", "6"},
+  {"7", "Murder 4", "10", "20", "7"},
+  {"7", "Quay", "10", "20", "0"},
+  {"7", "Forest", "10", "20", "0"},
+  {"8", "Beach", "10", "20", "8"},
+  {"8", "Toilets", "10", "20", "0"},
+  {"8", "Car", "10", "20", "8"}
+};
+*/
+
 char tBuffer[205];
 char tBuffer2[338];
 
