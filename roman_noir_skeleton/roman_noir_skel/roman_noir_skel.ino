@@ -1,6 +1,16 @@
 #include <Arduboy2.h>
 #include "Tinyfont.h"
 
+/*
+ * Normal font
+ *  -> Max cols: 21
+ *  -> Max lines: 8
+ * 
+ * Tiny font
+ *  -> Max cols: 25
+ *  -> Max lines: 13
+ */
+
 Arduboy2 arduboy;
 Tinyfont tinyfont = Tinyfont(arduboy.sBuffer, Arduboy2::width(), Arduboy2::height());
 
@@ -266,16 +276,21 @@ const char * const dialogs[] PROGMEM =
 };
 #define DIALOGS 7
 
-const char narration000[] PROGMEM = "Hong Kong, December 5\n\nPrivate detective Jacques Meyer\nlands at the airport.\nHe came there to investigate\nthe disappearance of";
-const char narration001[] PROGMEM = "Suzy Gao Xing, a\n26 years old journalist.";
+const char narration000[] PROGMEM = "0123456789ABCDEFGHIJK\n0123456789ABCDEFGHIJK\n0123456789ABCDEFGHIJK\n0123456789ABCDEFGHIJK\n0123456789ABCDEFGHIJK\n0123456789ABCDEFGHIJK\n0123456789ABCDEFGHIJK\n0123456789ABCDEFGHIJK\n";
+const char narration001[] PROGMEM = "Hong Kong, December 5\n\nPrivate detective Jacques Meyer\nlands at the airport.\nHe came there to investigate\nthe disappearance of";
+const char narration002[] PROGMEM = "Suzy Gao Xing, a\n26 years old journalist.";
+const char narration003[] PROGMEM = "0123456789ABCDEFGHIJKLMNO\n0123456789ABCDEFGHIJKLMNO\n0123456789ABCDEFGHIJKLMNO\n0123456789ABCDEFGHIJKLMNO\n0123456789ABCDEFGHIJKLMNO\n0123456789ABCDEFGHIJKLMNO\n0123456789ABCDEFGHIJKLMNO\n0123456789ABCDEFGHIJKLMNO\n0123456789ABCDEFGHIJKLMNO\n0123456789ABCDEFGHIJKLMNO\n0123456789ABCDEFGHIJKLMNO\n0123456789ABCDEFGHIJKLMNO\n0123456789ABCDEFGHIJKLMNO\n";
 const char * const narration[] PROGMEM = 
 {
   narration000,
-  narration001
+  narration001,
+  narration002,
+  narration003
 };
-#define NARRATION 2
+#define NARRATION 4
 
 char tBuffer[205];
+char tBuffer2[338];
 
 int menu(int firstEntry, int lastEntry, int currentEntry) {
   // Returns integer pointing to new currentScreen
@@ -445,9 +460,9 @@ void loop() {
       goBackToMenu = false;
       while ( goBackToMenu == false) {
         arduboy.clear();
-        tinyfont.setCursor(0, 0);
-        tinyfont.print("NARRATION");
-        arduboy.setCursor(0,10);
+        // tinyfont.setCursor(0, 0);
+        // tinyfont.print("NARRATION");
+        arduboy.setCursor(0, 0);
         arduboy.print(strcpy_P(tBuffer, (char*)pgm_read_word(&(narration[generalSelector]))));
         arduboy.pollButtons();
         if ( arduboy.justPressed(A_BUTTON) ) {
@@ -456,7 +471,7 @@ void loop() {
           generalSelector = 0;
           goBackToMenu = true;
         }
-        if ( generalSelector > 1 ) {
+        if ( generalSelector > 2 ) {
           generalSelector = 0;
           goBackToMenu = true;
         }
@@ -594,9 +609,10 @@ void loop() {
       while ( goBackToMenu == false ) {
         arduboy.clear();
         tinyfont.setCursor(0, 0);
-        tinyfont.print("INTRO");
-        tinyfont.setCursor(0, 15);
-        tinyfont.print("The story, characters and\nevents in this game\nare entirely fictional.\nAny similarities to actual\npeople, places and events\nare entirely coincidental.");
+        // tinyfont.print("INTRO");
+        // tinyfont.setCursor(0, 15);
+        // tinyfont.print("The story, characters and\nevents in this game\nare entirely fictional.\nAny similarities to actual\npeople, places and events\nare entirely coincidental.");
+        tinyfont.print(strcpy_P(tBuffer2, (char*)pgm_read_word(&(narration[3]))));
         arduboy.pollButtons();
         if ( arduboy.justPressed(A_BUTTON) || arduboy.justPressed(B_BUTTON) ) {
           generalSelector = 0;
