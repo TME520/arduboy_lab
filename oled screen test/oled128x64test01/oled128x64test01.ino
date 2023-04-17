@@ -1,5 +1,14 @@
 #include "U8glib.h"
 U8GLIB_SH1106_128X64 u8g(13, 11, 10, 9); // SCK = 13, MOSI = 11, CS = 10, A0 = 9
+/*
+GND  = GND (5V)
+VCC  = 5V
+CLK  = 13
+MOSI = 11
+RES  = RES
+DC   = 9
+CS   = 10
+*/
 
 void draw(void) {
   // graphic commands to redraw the complete screen should be placed here
